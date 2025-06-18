@@ -38,9 +38,9 @@ class AgentState(TypedDict):
     message_history: list
     optimized: bool
     calendar_success: bool
-    trip_start_date: str               # ✅ REQUIRED!
-    departure_city: str                # Optional but useful
-    travel_suggestion: dict               # Optional (LLM may fill)
+    trip_start_date: str               
+    departure_city: str                
+    travel_suggestion: dict            
 
 
 def check_optimization(state: AgentState) -> str:
@@ -107,17 +107,17 @@ builder.add_edge("Suggest Arrival Transport", END)
 
 
 
-# ✅ Compile graph
+#  Compile graph
 app = builder.compile()
 
 from datetime import datetime
 
-# ✅ Get user inputs
+#  Get user inputs
 user_input = input("📝 Describe your travel plan (e.g., 'I want to visit Mumbai for 2 days and I love beaches'): ").strip()
 departure_city = input("📍 Your Departure City: ").strip()
 trip_start_date = input("📅 Trip Start Date (YYYY-MM-DD): ").strip()
 
-# ✅ Validate trip_start_date
+#  Validate trip_start_date
 try:
     datetime.strptime(trip_start_date, "%Y-%m-%d")
 except ValueError:
@@ -126,8 +126,8 @@ except ValueError:
 
 initial_state = {
     "user_input": user_input,
-    "departure_city": departure_city,               # ⬅️ Added manually for now
-    "trip_start_date": trip_start_date,        # ⬅️ Added manually for now
+    "departure_city": departure_city,               
+    "trip_start_date": trip_start_date,        
     "location": {"city": ""},
     "duration_days": 0,
     "interests": [],
@@ -143,29 +143,27 @@ initial_state = {
     "human_feedback": "",
     "message_history": [],
     "optimized": False,
-    "reaching_method": "",                  # ⬅️ Optional: LLM will populate this
+    "reaching_method": "",                  
     "travel_suggestion": {}
 }
 
-# ✅ Driver loop to handle multiple HITL feedback rounds
+
 
 current_state = initial_state
 
+# Driver loop to handle multiple HITL feedback rounds
 while True:
     current_state = app.invoke(current_state)
     if current_state.get("human_decision") == "approve":
         break
 
-print("\n🎯 FINAL ITINERARY:")
+print("\n FINAL ITINERARY:")
 print(current_state.get("final_itenary", "No itinerary was generated."))
 
 if current_state.get("calendar_success"):
-    print("📅 Itinerary successfully saved to Google Calendar.")
+    print(" Itinerary successfully saved to Google Calendar.")
 else:
-    print("⚠️ Calendar save failed or was skipped.")
+    print(" Calendar save failed or was skipped.")
 
 
 
-# ✅ Final output
-# print("\n🎯 FINAL STATE:")
-# print(final_state)

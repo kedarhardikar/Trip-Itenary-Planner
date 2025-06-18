@@ -23,7 +23,6 @@ def fetch_news(state: dict) -> dict:
 
     url = (
         f"https://newsapi.org/v2/everything?q={city}&from={from_date}&sortBy=popularity&apiKey={NEWS_API_KEY}"
-        # f"https://newsapi.org/v2/everything?q={city}&language=en&from={from_date}&to={to_date}&pageSize=5&apiKey={NEWS_API_KEY}"
     )
 
     try:
@@ -56,7 +55,7 @@ def fetch_news(state: dict) -> dict:
                      break
 
         else:
-                print("⚠️ No articles found.")
+                print(" No articles found.")
 
         # ✅ Inject back into state
         return {
@@ -65,5 +64,5 @@ def fetch_news(state: dict) -> dict:
             }
 
     except Exception as e:
-        print(f"❌ News API call failed: {e}")
+        print(f"News API call failed: {e}")
         return state

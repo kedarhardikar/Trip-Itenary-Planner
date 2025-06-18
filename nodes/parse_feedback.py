@@ -39,19 +39,19 @@ def parse_feedback(state: dict) -> dict:
     chain = feedback_prompt | llm
     response = chain.invoke({"feedback": feedback})
     raw_output = response.content
-    print("🧠 Raw LLM response (parse feedback):", raw_output)
+    print(" Raw LLM response (parse feedback):", raw_output)
 
     # Extract JSON block
     match = re.search(r'\{.*?\}', raw_output, re.DOTALL)
     if not match:
-        raise ValueError(f"❌ No JSON found:\n{raw_output}")
+        raise ValueError(f"No JSON found:\n{raw_output}")
 
     json_block = match.group(0)
     try:
         json_block = json_block.replace("None", "null")
         parsed = json.loads(json_block)
     except json.JSONDecodeError:
-        raise ValueError(f"❌ Invalid JSON:\n{json_block}")
+        raise ValueError(f"Invalid JSON:\n{json_block}")
 
     # Carefully update state only for non-null fields
     new_city = parsed.get("destination_city", None)
@@ -66,7 +66,7 @@ def parse_feedback(state: dict) -> dict:
         updated_state["duration_days"] = new_duration
 
     if new_interests is not None:
-        # 🧠 extra protection: only update if not empty list
+        #  extra protection: only update if not empty list
         if len(new_interests) > 0:
             updated_state["interests"] = new_interests
         else:

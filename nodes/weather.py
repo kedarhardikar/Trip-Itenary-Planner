@@ -15,7 +15,7 @@ def fetch_weather(state: dict) -> dict:
     city = state.get("location", {}).get("city", "")
 
     if not city:
-        print("❌ No city found in state for weather.")
+        print(" No city found in state for weather.")
         return state
 
     complete_url = f"{BASE_URL}appid={WEATHER_API_KEY}&q={city}&units=metric"
@@ -43,9 +43,9 @@ def fetch_weather(state: dict) -> dict:
                 "weather_data": weather_data
             }
         else:
-            print("⚠️ City not found in weather API.")
+            print(" City not found in weather API.")
             return state
 
     except Exception as e:
-        print(f"❌ Weather API call failed: {e}")
+        print(f"Weather API call failed: {e}")
         return state

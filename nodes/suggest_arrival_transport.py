@@ -41,14 +41,14 @@ Example Output:
 ])
 
 def suggest_travel(state: dict) -> dict:
-    print("🧭 Generating travel suggestion...")
+    print("Generating travel suggestion...")
 
     departure_city = state.get("departure_city")
     destination_city = state.get("location")
     trip_start_date = state.get("trip_start_date")
 
     if not (departure_city and destination_city and trip_start_date):
-        print("❌ Missing required travel data.")
+        print(" Missing required travel data.")
         return {**state, "travel_suggestion": {}}
 
     # Invoke chain
@@ -65,7 +65,7 @@ def suggest_travel(state: dict) -> dict:
     try:
         travel_suggestion = json.loads(raw_output)
     except Exception as e:
-        raise ValueError(f"❌ Failed to parse travel suggestion: {raw_output}") from e
+        raise ValueError(f" Failed to parse travel suggestion: {raw_output}") from e
 
     return {
         **state,

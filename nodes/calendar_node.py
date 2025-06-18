@@ -15,7 +15,7 @@ def create_calendar_events(state: dict) -> dict:
         return state
 
     try:
-        # ✅ Extract only actual "Day X" chunks, ignore intro text
+        #  Extract only actual "Day X" chunks, ignore intro text
         day_chunks = re.split(r"(?=Day \d+:)", itinerary.strip())
         day_chunks = [chunk.strip() for chunk in day_chunks if re.match(r"^Day \d+:", chunk.strip())]
 
@@ -24,7 +24,7 @@ def create_calendar_events(state: dict) -> dict:
             state["calendar_success"] = False
             return state
 
-        # 🔐 Authenticate with Google Calendar
+        #  Authenticate with Google Calendar
         creds = InstalledAppFlow.from_client_secrets_file(
             'credentials.json', ['https://www.googleapis.com/auth/calendar']
         ).run_local_server(port=8000)
@@ -35,14 +35,14 @@ def create_calendar_events(state: dict) -> dict:
         for i, day_plan in enumerate(day_chunks):
             event_date = base_date + timedelta(days=i)
 
-            # 🧹 Extract header and POIs
+            # Extract header and POIs
             lines = re.split(r"\n|- ", day_plan)
             lines = [line.strip() for line in lines if line.strip()]
 
             header = lines[0] if lines else f"Day {i+1}"
             poi_lines = "\n".join(lines[1:]) if len(lines) > 1 else "No POIs listed."
 
-            # 📅 Create event payload
+            #  Create event payload
             event = {
                 'summary': header,
                 'description': poi_lines,
@@ -56,14 +56,14 @@ def create_calendar_events(state: dict) -> dict:
                 },
             }
 
-            # 🚀 Push to calendar
+            #  Push to calendar
             created_event = service.events().insert(calendarId='primary', body=event).execute()
             print(f"✅ Created event: {created_event.get('htmlLink')}")
 
         state["calendar_success"] = True
 
     except Exception as e:
-        print(f"❌ Calendar error: {e}")
+        print(f" Calendar error: {e}")
         state["calendar_success"] = False
 
     return state

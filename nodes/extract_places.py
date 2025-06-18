@@ -65,7 +65,7 @@ def places(state: dict) -> dict:
         if not isinstance(places, list):
             raise ValueError("Not a valid list")
     except Exception as e:
-        raise ValueError(f"❌ Failed to parse places: {raw_output}") from e
+        raise ValueError(f"Failed to parse places: {raw_output}") from e
 
     return {
         **state,

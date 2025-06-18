@@ -8,7 +8,7 @@ def approval(state: dict) -> dict:
         itinerary = state.get("final_itenary", "No itinerary available.")
         print(itinerary)
     else:
-        print("⚠️ Optimization failed, showing simple POI list:")
+        print(" Optimization failed, showing simple POI list:")
         pois = state.get("points_of_interest", [])
         if pois:
             for i, place in enumerate(pois, 1):

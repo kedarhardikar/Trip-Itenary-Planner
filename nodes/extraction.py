@@ -68,12 +68,8 @@ def extract1(state: dict) -> dict:
 
     city = info.get("destination_city")
     duration = info.get("duration_days")
-    # lat, lon = get_lat_lon(city)
+    
 
-    # if lat is None or lon is None:
-    #     raise ValueError(f"Could not find lat/lon for city: {city}")
-
-    # print(f"SUCCESS: City: {city}, lat/lon: ({lat}, {lon})\nINFO: {info}")
     print(f"SUCCESS: City: {city}, \nINFO: {info}")
 
     # Append assistant reply to message history
@@ -81,7 +77,6 @@ def extract1(state: dict) -> dict:
 
     return {
         **state,
-        # "location": {"city": city, "lat": lat, "lon": lon},
         "location": {"city":city},
         "duration_days": duration,
         "message_history": message_history

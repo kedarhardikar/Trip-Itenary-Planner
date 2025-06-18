@@ -17,7 +17,7 @@ def distance_matrix(state: dict) -> dict:
     ]
 
     if len(locations) < 2:
-        raise ValueError("❌ Need at least 2 locations to compute distance matrix.")
+        raise ValueError(" Need at least 2 locations to compute distance matrix.")
 
     headers = {
         "Authorization": HEIGIT_KEY,
@@ -35,7 +35,7 @@ def distance_matrix(state: dict) -> dict:
         response.raise_for_status()
         data = response.json()
     except Exception as e:
-        print(f"❌ Distance matrix API failed: {e}")
+        print(f"Distance matrix API failed: {e}")
         # Simply return state and allow graph to proceed
         return { **state, "distance_matrix": None }
 
