@@ -1,0 +1,17 @@
+# requires python == 3.10.0
+langgraph
+annotated-types
+langchain
+langchain-core
+langchain-groq
+langchain-community
+tavily-python
+langgraph-checkpoint-sqlite
+requests
+python-dotenv
+langchain-tavily
+python-utils
+newsapi
+google-auth-oauthlib
+google-api-python-client
+streamlit
